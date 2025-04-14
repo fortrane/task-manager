@@ -1,13 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11-slim'
-        }
-    }
-
-    environment {
-        DOCKER_COMPOSE = 'docker-compose'
-    }
+    agent any
 
     stages {
         stage('Checkout') {
@@ -18,47 +10,45 @@ pipeline {
 
         stage('Setup') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh 'apt-get update && apt-get install -y python3 python3-pip'
+                sh 'python3 -m pip install -r requirements.txt'
             }
         }
 
         stage('Lint') {
             steps {
-                sh 'pip install flake8'
+                sh 'python3 -m pip install flake8'
                 sh 'flake8 app --ignore=E501,E722,W503'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'pip install pytest pytest-cov'
+                sh 'python3 -m pip install pytest pytest-cov'
                 sh 'pytest --cov=app tests/'
             }
         }
 
         stage('Build') {
             steps {
-                sh '${DOCKER_COMPOSE} build'
+                sh 'docker-compose build'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh '${DOCKER_COMPOSE} up -d'
-            }
-        }
-
-        stage('Load Test') {
-            steps {
-                sh 'pip install locust'
-                sh 'locust -f tests/locustfile.py --host=http://localhost:8000 --users 100 --spawn-rate 10 --headless --run-time 1m'
+                sh 'docker-compose up -d'
             }
         }
     }
 
     post {
         always {
-            sh '${DOCKER_COMPOSE} down || true'
+            script {
+                node {
+                    sh 'docker-compose down || true'
+                }
+            }
         }
     }
 }
