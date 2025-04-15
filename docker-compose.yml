@@ -1,5 +1,9 @@
 version: '3.8'
 
+networks:
+  task-manager-network:
+    driver: bridge
+
 services:
   api:
     build:
@@ -20,6 +24,8 @@ services:
       - "prometheus.scrape=true"
       - "prometheus.port=8000"
       - "prometheus.path=/metrics"
+    networks:
+      - task-manager-network
 
   telegram-bot:
     build:
@@ -27,7 +33,7 @@ services:
       dockerfile: infrastructure/docker/Dockerfile
     command: python -m app.telegram.bot
     volumes:
-      - ./app:/app
+      - ./:/app
     depends_on:
       - api
     env_file:
@@ -36,6 +42,8 @@ services:
       - "prometheus.scrape=true"
       - "prometheus.port=8000"
       - "prometheus.path=/metrics"
+    networks:
+      - task-manager-network
 
   postgres:
     image: postgres:latest
@@ -50,14 +58,20 @@ services:
     labels:
       - "prometheus.scrape=true"
       - "prometheus.port=5432"
+    networks:
+      - task-manager-network
 
   traefik:
     image: traefik:latest
     command:
       - "--api.insecure=true"
+      - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.addEntryPointsLabels=true"
+      - "--metrics.prometheus.addServicesLabels=true"
     ports:
       - "80:80"
       - "${TRAEFIK_DASHBOARD_PORT}:8080"
@@ -67,6 +81,8 @@ services:
       - "prometheus.scrape=true"
       - "prometheus.port=8080"
       - "prometheus.path=/metrics"
+    networks:
+      - task-manager-network
 
   prometheus:
     image: prom/prometheus:latest
@@ -86,6 +102,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.prometheus.rule=Host(`prometheus.localhost`)"
       - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+    networks:
+      - task-manager-network
 
   grafana:
     image: grafana/grafana:latest
@@ -104,6 +122,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.grafana.rule=Host(`grafana.localhost`)"
       - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+    networks:
+      - task-manager-network
 
   jenkins:
     image: jenkins/jenkins:latest
@@ -118,9 +138,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.jenkins.rule=Host(`jenkins.localhost`)"
       - "traefik.http.services.jenkins.loadbalancer.server.port=8080"
-      - "prometheus.scrape=true"
-      - "prometheus.port=8080"
-      - "prometheus.path=/prometheus"
+    networks:
+      - task-manager-network
 
 volumes:
   postgres_data:

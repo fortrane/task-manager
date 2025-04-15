@@ -32,9 +32,11 @@ app.mount("/metrics", metrics_app)
 # Include API router
 app.include_router(api_router, prefix="/api")
 
+
 @app.on_event("startup")
 async def startup_event():
     create_db_and_tables()
+
 
 @app.get("/")
 async def root():

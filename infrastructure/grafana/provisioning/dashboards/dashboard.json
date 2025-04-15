@@ -112,13 +112,13 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(app_request_count{app_name=\"task_manager\"}[5m])) by (endpoint)",
+          "expr": "rate(app_request_count_total[5m])",
           "legendFormat": "{{endpoint}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "API Request Rate by Endpoint",
+      "title": "API Request Rate",
       "type": "timeseries"
     },
     {
@@ -205,13 +205,13 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum(rate(app_request_latency_seconds_bucket{app_name=\"task_manager\"}[5m])) by (le, endpoint))",
-          "legendFormat": "{{endpoint}}",
+          "expr": "histogram_quantile(0.95, sum(rate(app_request_latency_seconds_bucket[5m])) by (le))",
+          "legendFormat": "95th percentile",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "API Request Latency (p95) by Endpoint",
+      "title": "API Request Latency (p95)",
       "type": "timeseries"
     },
     {
@@ -422,13 +422,13 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "avg(app_task_completion_time_seconds_sum / app_task_completion_time_seconds_count) by (priority)",
-          "legendFormat": "{{priority}}",
+          "expr": "sum(rate(app_task_completion_time_seconds_sum[5m])) / sum(rate(app_task_completion_time_seconds_count[5m]))",
+          "legendFormat": "Average Completion Time",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Average Task Completion Time by Priority",
+      "title": "Average Task Completion Time",
       "type": "timeseries"
     },
     {

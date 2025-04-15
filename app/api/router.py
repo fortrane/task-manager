@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-
 from app.api.endpoints import auth, tasks, reminders, time_tracking, telegram
 
 api_router = APIRouter()

@@ -571,9 +571,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/tasks/{{taskId}}/time/start",
+              "raw": "{{baseUrl}}/time-tracking/tasks/{{taskId}}/time/start",
               "host": ["{{baseUrl}}"],
-              "path": ["tasks", "{{taskId}}", "time", "start"]
+              "path": ["time-tracking", "tasks", "{{taskId}}", "time", "start"]
             },
             "description": "Начало отслеживания времени задачи"
           },
@@ -610,9 +610,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/tasks/{{taskId}}/time/stop",
+              "raw": "{{baseUrl}}/time-tracking/tasks/{{taskId}}/time/stop",
               "host": ["{{baseUrl}}"],
-              "path": ["tasks", "{{taskId}}", "time", "stop"]
+              "path": ["time-tracking", "tasks", "{{taskId}}", "time", "stop"]
             },
             "description": "Остановка отслеживания времени задачи"
           },
@@ -647,9 +647,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/tasks/{{taskId}}/time",
+              "raw": "{{baseUrl}}/time-tracking/tasks/{{taskId}}/time",
               "host": ["{{baseUrl}}"],
-              "path": ["tasks", "{{taskId}}", "time"]
+              "path": ["time-tracking", "tasks", "{{taskId}}", "time"]
             },
             "description": "Получение всех записей отслеживания времени для задачи"
           },
@@ -701,9 +701,9 @@
               "raw": "{\n    \"reminder_time\": \"{{$isoTimestamp}}\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/tasks/{{taskId}}/reminders",
+              "raw": "{{baseUrl}}/reminders/tasks/{{taskId}}",
               "host": ["{{baseUrl}}"],
-              "path": ["tasks", "{{taskId}}", "reminders"]
+              "path": ["tasks", "{{taskId}}"]
             },
             "description": "Создание напоминания для задачи"
           },
@@ -738,9 +738,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/tasks/{{taskId}}/reminders",
+              "raw": "{{baseUrl}}/reminders/tasks/{{taskId}}",
               "host": ["{{baseUrl}}"],
-              "path": ["tasks", "{{taskId}}", "reminders"]
+              "path": ["tasks", "{{taskId}}"]
             },
             "description": "Получение всех напоминаний для задачи"
           },
@@ -778,9 +778,9 @@
               "raw": "{\n    \"reminder_time\": \"{{$isoTimestamp}}\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/reminders/{{reminderId}}",
+              "raw": "{{baseUrl}}/reminders/update/{{reminderId}}",
               "host": ["{{baseUrl}}"],
-              "path": ["reminders", "{{reminderId}}"]
+              "path": ["reminders", "update", "{{reminderId}}"]
             },
             "description": "Обновление напоминания"
           },
@@ -810,9 +810,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/reminders/{{reminderId}}",
+              "raw": "{{baseUrl}}/reminders/delete/{{reminderId}}",
               "host": ["{{baseUrl}}"],
-              "path": ["reminders", "{{reminderId}}"]
+              "path": ["reminders", "delete", "{{reminderId}}"]
             },
             "description": "Удаление напоминания"
           },

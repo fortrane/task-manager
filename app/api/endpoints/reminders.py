@@ -15,7 +15,7 @@ from app.schemas import (
 router = APIRouter()
 
 
-@router.post("/tasks/{task_id}/reminders", response_model=ReminderSchema)
+@router.post("/tasks/{task_id}", response_model=ReminderSchema)
 async def create_reminder(
         task_id: int,
         reminder_in: ReminderCreate,
@@ -45,7 +45,7 @@ async def create_reminder(
     return reminder
 
 
-@router.get("/tasks/{task_id}/reminders", response_model=List[ReminderSchema])
+@router.get("/tasks/{task_id}", response_model=List[ReminderSchema])
 async def read_reminders(
         task_id: int,
         db: Session = Depends(get_db),
@@ -94,7 +94,7 @@ async def read_reminder(
     return reminder
 
 
-@router.put("/reminders/{reminder_id}", response_model=ReminderSchema)
+@router.put("/update/{reminder_id}", response_model=ReminderSchema)
 async def update_reminder(
         reminder_id: int,
         reminder_in: ReminderUpdate,
@@ -132,7 +132,7 @@ async def update_reminder(
     return reminder
 
 
-@router.delete("/reminders/{reminder_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/delete/{reminder_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_reminder(
         reminder_id: int,
         db: Session = Depends(get_db),
