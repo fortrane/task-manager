@@ -87,8 +87,8 @@ The application follows a clean architecture with separation of concerns:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/task-manager-api.git
-   cd task-manager-api
+   git clone https://github.com/fortrane/task-manager.git
+   cd task-manager
    ```
 
 2. Customize the `.env` file with your configuration:
