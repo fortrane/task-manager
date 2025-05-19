@@ -5,6 +5,9 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.0%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+## 📺 Demo Video
+[![Task Manager API Demo](https://img.youtube.com/vi/W_g8kFQGtGE/0.jpg)](https://www.youtube.com/watch?v=W_g8kFQGtGE)
+
 ## 📝 Project Overview
 
 The Task Manager API is a comprehensive task management solution designed to help individuals and teams organize, track, and complete their tasks efficiently. Built with modern technologies and best practices, this system provides a robust backend for task management applications.
