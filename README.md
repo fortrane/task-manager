@@ -86,6 +86,40 @@ The application follows a clean architecture with separation of concerns:
 
 - Docker and Docker Compose
 
+### 🎯 Quick Start with setup.sh (Recommended)
+The easiest way to get started is using our automated setup script, specially optimized for Apple Silicon Macs:
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/fortrane/task-manager.git
+    cd task-manager
+    ```
+
+2. Make the setup script executable:
+    ```bash
+    chmod +x setup.sh
+    ```
+
+3. Run the automated setup:
+    ```bash
+    ./setup.sh
+    ```
+
+4. Stop and clean up (when needed):
+    ```bash
+    ./setup.sh clean
+    ```
+
+The script will:
+
+- 🔍 Check system requirements (Docker, Docker Compose)
+- 🐳 Verify Docker is running
+- 📝 Create environment configuration (.env file)
+- 🔍 Check port availability
+- 🚀 Build and start all services
+- 🏥 Wait for services to be ready
+- 📊 Display service URLs and status
+
 ### Docker Deployment
 
 1. Clone the repository:
